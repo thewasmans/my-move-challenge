@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import IRestaurant from '../interfaces/IRestaurant';
 
-export default function useYelpSearchRestaurant()
+export type Price = '' | '1' | '2' | '3' | '4'
+type SortBy = 'rating'
+
+export default function useYelpSearchRestaurant(defaultLocation:string)
 {
-  const [businesses, setBusinesses] = useState([]);
+  const [restaurants, setRestaurants] = useState([] as IRestaurant[]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null as unknown);
-  const [term, setTerm] = useState('restaurants');
-  const [location, setLocation] = useState('brussels');
+  const [error, setError] = useState(null as unknown | null);
+  const [term] = useState('restaurants');
+  const [location, setLocation] = useState(defaultLocation);
+  const [categories, setCategories] = useState([] as string[]);
+  const [prices, setPrices] = useState([] as Price[]);
+  const [sortBy, setSortBy] = useState('' as SortBy | '');
 
   const API_KEY = import.meta.env.VITE_YELP_API_KEY;
 
@@ -15,18 +22,25 @@ export default function useYelpSearchRestaurant()
     const fetchBusinesses = async () =>
     {
       setLoading(true);
+      let params = new URLSearchParams();
+      params.append('term', term)
+      params.append('location', location)
+      
+      if(sortBy.trim().length > 0) params.append('sort_by', sortBy)
+
+      categories.forEach(c => params.append('categories', c));
+
+      prices.forEach(p => params.append('price', p));
+      
       try
       {
         const response = await axios.get(`/api/businesses/search`, {
           headers: {
             Authorization: `Bearer ${API_KEY}`
           },
-          params: {
-            term,
-            location,
-          },
+          params: params,
         });
-        setBusinesses(response.data.businesses);
+        setRestaurants(response.data.businesses);
       }
       catch (error)
       {
@@ -39,15 +53,18 @@ export default function useYelpSearchRestaurant()
     };
 
     fetchBusinesses();
-  }, [term, location]);
+  }, [term, location, categories, prices, sortBy]);
 
   return {
-    businesses,
+    restaurants,
     loading,
     error,
-    setSearchCriteria: (newTerm:string, newLocation:string) => {
-      setTerm(newTerm);
-      setLocation(newLocation);
+    setSearchCriteria: (location:string = '', categories:string[] = [], prices:Price[] = [], sortByRating:boolean = false) =>
+    {
+      setLocation(location)
+      setCategories(categories)
+      setPrices(prices)
+      setSortBy(sortByRating ? 'rating' : '')
     },
   };
 };

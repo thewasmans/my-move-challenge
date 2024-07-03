@@ -1,42 +1,17 @@
+import { useState } from 'react';
 import './App.css'
+import IRestaurant from './interfaces/IRestaurant';
+import PageRestaurantFinder from './pages/PageRestaurantFinder'
+import { RestaurantCard } from './components/RestaurantCard';
+
 function App()
 {
+  const [restaurantSelected, setRestaurantSelected] = useState(undefined as IRestaurant | undefined);
+
   return (
     <div>
-      <div>
-        <div>
-          <span>Find</span>
-          <input placeholder='Type an adress'/>
-          <button> Search </button>
-        </div>
-        <div>
-          <div><button> Food A </button> <button> Food B </button> <button> Food C </button></div>
-        </div>
-        <div> <input placeholder='Filter critere'/> </div>
-        <div>
-          <div>
-            <h3> Restaurant A</h3>
-            <img  src ='./' />
-            <div>
-              <span> Address</span>
-              <span> Phone</span>
-              <span> Website</span>
-              <span> Schedule</span>
-            </div>
-          </div>
-          <div>
-            <h3> Restaurant B</h3>
-            <img  src ='./' />
-            <div>
-              <span> Address</span>
-              <span> Phone</span>
-              <span> Website</span>
-              <span> Schedule</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div> Restaurant Card Component </div>
+      {restaurantSelected && <RestaurantCard restaurant={restaurantSelected} />}
+      <PageRestaurantFinder cardClicked={r => setRestaurantSelected(r)} onNewSearch={() => setRestaurantSelected(undefined)}/>
     </div>
   )
 }
