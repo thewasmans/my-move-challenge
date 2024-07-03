@@ -1,10 +1,8 @@
 import './App.css'
-import BusinessList from './components/BusinessList'
 function App()
 {
   return (
     <div>
-      {/* <BusinessList /> */}
       <div>
         <div>
           <span>Find</span>
