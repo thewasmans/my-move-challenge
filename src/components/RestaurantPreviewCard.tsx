@@ -11,12 +11,12 @@ export function RestaurantPreviewCard ({restaurant, cardClicked} : Props)
 {
     const {name, image_url: urlImageCover, price: prices, rating, categories} = restaurant
 
-    return <Card onClick={_ => cardClicked()}>
-    <CardHeader style={{ background : `url(${urlImageCover})`, height : '10em'}}>
+    return <Card onClick={e => cardClicked()}>
+    <CardHeader style={{ background : `url(${urlImageCover})`, backgroundSize : 'cover', height : '10em'}}>
     </CardHeader>
     <CardContent>
     <CardTitle>{name}</CardTitle>
-    <CardDescription>{categories.reduce((p,c) => p + c.title, '')} {rating} {prices}</CardDescription>
+    <CardDescription>{categories.reduce((p,c) => `${p} ${c.title}`, '')} {rating} {prices}</CardDescription>
     </CardContent>
   </Card>
 }

@@ -1,5 +1,5 @@
 import IRestaurant from "../interfaces/IRestaurant";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 interface Props
 {
@@ -12,14 +12,14 @@ export function RestaurantCard ({restaurant} : Props)
     
     return (
       <Card>
-        <CardHeader style={{ background : `url(${urlImageCover})`, height : '10em'}}>
+        <CardHeader className="bg-url" style={{ background : `url(${urlImageCover})`, backgroundSize : 'cover', height : '10em'}}>
         </CardHeader>
         <CardContent>
         <CardTitle>{name}</CardTitle>
         <CardDescription>{categories.reduce((p,c) => `${p} ${c.title}`, '')} {rating} {prices}</CardDescription>
-        {phone}      
-        <div><a href={`https://maps.google.com/?q=${coordinates.latitude},${coordinates.longitude}`}>Maps location</a></div>
-        <div><a href={yelpURL}> Yelp url </a></div>
+        {phone}
+        <div className="underline"><a href={`https://maps.google.com/?q=${coordinates.latitude},${coordinates.longitude}`}>Maps location</a></div>
+        <div className="underline"><a href={yelpURL}> Yelp url </a></div>
         <div>{location.display_address.map((l, i) => <span key={i}> {l} </span>)}</div>
         </CardContent>
     </Card>
