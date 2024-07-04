@@ -19,6 +19,12 @@ Technical testing during applying to mymove
    ```bash
    npm install
    ```
+4. Add .env file with the follow content
+
+   ```
+   VITE_YELP_ENDPOINT=https://api.yelp.com/v3/businesses/search
+   VITE_YELP_API_KEY=your_personnl_key_api
+   ```
 
 4. Start the development server:
 
