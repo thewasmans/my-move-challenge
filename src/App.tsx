@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './App.css'
 import IRestaurant from './interfaces/IRestaurant';
 import PageRestaurantFinder from './pages/PageRestaurantFinder'
 import { RestaurantCard } from './components/RestaurantCard';
