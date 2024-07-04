@@ -5,7 +5,7 @@ Technical testing during applying to mymove
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/thewasmans/my-move-challenge
+   git clone https://github.com/thewasmans/my-move-challenge.git
    ```
 
 2. Navigate to the project directory:
