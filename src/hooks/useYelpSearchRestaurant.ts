@@ -32,6 +32,8 @@ export default function useYelpSearchRestaurant(defaultLocation:string)
       categories.forEach(c => params.append('categories', c));
 
       prices.forEach(p => params.append('price', p));
+
+      console.log('API_URL', API_URL)
       
       try
       {
@@ -42,10 +44,12 @@ export default function useYelpSearchRestaurant(defaultLocation:string)
           params: params,
         });
         setRestaurants(response.data.businesses);
+        console.log('response.data.businesses')
       }
       catch (error)
       {
         setError(error);
+        console.log('error', error)
       }
       finally
       {
