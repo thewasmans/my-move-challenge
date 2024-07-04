@@ -17,7 +17,7 @@ export default function useYelpSearchRestaurant(defaultLocation:string)
   const [sortBy, setSortBy] = useState('' as SortBy | '');
 
   const API_KEY = import.meta.env.VITE_YELP_API_KEY;
-  const API_URL = import.meta.env.VITE_YELP_ENDPOINT;
+  const API_URL = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search';
 
   useEffect(() => {
     const fetchBusinesses = async () =>
