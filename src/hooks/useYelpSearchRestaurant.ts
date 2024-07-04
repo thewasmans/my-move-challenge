@@ -17,6 +17,7 @@ export default function useYelpSearchRestaurant(defaultLocation:string)
   const [sortBy, setSortBy] = useState('' as SortBy | '');
 
   const API_KEY = import.meta.env.VITE_YELP_API_KEY;
+  const API_URL = import.meta.env.VITE_YELP_ENDPOINT;
 
   useEffect(() => {
     const fetchBusinesses = async () =>
@@ -34,7 +35,7 @@ export default function useYelpSearchRestaurant(defaultLocation:string)
       
       try
       {
-        const response = await axios.get(`/api/businesses/search`, {
+        const response = await axios.get(API_URL, {
           headers: {
             Authorization: `Bearer ${API_KEY}`
           },
