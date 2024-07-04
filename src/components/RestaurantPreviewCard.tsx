@@ -11,7 +11,7 @@ export function RestaurantPreviewCard ({restaurant, cardClicked} : Props)
 {
     const {name, image_url: urlImageCover, price: prices, rating, categories} = restaurant
 
-    return <Card onClick={e => cardClicked()}>
+    return <Card onClick={_ => cardClicked()}>
     <CardHeader style={{ background : `url(${urlImageCover})`, backgroundSize : 'cover', height : '10em'}}>
     </CardHeader>
     <CardContent>
