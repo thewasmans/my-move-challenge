@@ -1,6 +1,9 @@
 # my-move-challenge
 Technical testing during applying to mymove
 
+## 🎉 Demo
+https://thewasmans.github.io/my-move-challenge/
+
 ## 🚀 Getting Started
 1. Clone the repository:
 
