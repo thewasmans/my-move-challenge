@@ -10,8 +10,11 @@ function App()
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="flex flex-col items-center justify-center h-screen">
-        {restaurantSelected && <RestaurantCard restaurant={restaurantSelected} />}
+      <div className="flex justify-center h-screen">
+        <div onClick={_ => setRestaurantSelected(undefined)}
+        className={`${restaurantSelected ? 'flex' : 'hidden'} fixed inset-0 bg-gray-900 bg-opacity-50 items-center justify-center z-50`}>
+          {restaurantSelected && <RestaurantCard restaurant={restaurantSelected} />}
+        </div>
         <PageRestaurantFinder cardClicked={r => setRestaurantSelected(r)} onNewSearch={() => setRestaurantSelected(undefined)}/>
       </div>
     </ThemeProvider>
