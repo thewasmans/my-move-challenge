@@ -1,4 +1,5 @@
 import IRestaurant from "../interfaces/IRestaurant";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 interface Props
 {
@@ -8,16 +9,14 @@ interface Props
 
 export function RestaurantPreviewCard ({restaurant, cardClicked} : Props)
 {
-    const {name, image_url: urlImageCover, price: prices, rating} = restaurant
-    
-    return (
-    <div onClick={_ => cardClicked()}>
-      <div style={{ background : `url(${urlImageCover})`, height : '10em'}}></div>
-      <div>
-        <h4>{name}</h4>
-        <div>{rating}</div>
-      </div>
-      <div>{prices}</div>
-    </div>
-  );
+    const {name, image_url: urlImageCover, price: prices, rating, categories} = restaurant
+
+    return <Card onClick={_ => cardClicked()}>
+    <CardHeader style={{ background : `url(${urlImageCover})`, height : '10em'}}>
+    </CardHeader>
+    <CardContent>
+    <CardTitle>{name}</CardTitle>
+    <CardDescription>{categories.reduce((p,c) => p + c.title, '')} {rating} {prices}</CardDescription>
+    </CardContent>
+  </Card>
 }

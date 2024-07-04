@@ -5,6 +5,12 @@ import useYelpSearchRestaurant, { Price } from "../hooks/useYelpSearchRestaurant
 import ICategory from "../interfaces/ICategory"
 import IRestaurant from "../interfaces/IRestaurant"
 import ErrorFetchDatas from "../components/ErrorFetchDatas"
+import { Button } from "../components/ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
+import { Input } from "../components/ui/input"
+import { Label } from "../components/ui/label"
+import { Toggle } from "../components/ui/toggle"
+import { ToggleGroup, ToggleGroupItem } from "../components/ui/toggle-group"
 
 const FOODS_CATEGORIES:ICategory[] = [
     {alias:"belgian", title:"Belgian"},
@@ -28,7 +34,7 @@ export default function PageRestaurantFinder({cardClicked, onNewSearch}:Props)
 
     const [location, setLocation] = useState('');
     const [category, setCategory] = useState(undefined as ICategory | undefined);
-    const [filterName, setFilterName] = useState('');
+    const [filterName, setFilterName] = useState('N');
     const [price, setPrice] = useState('' as Price);
     const [rating, setRating] = useState(false);
 
@@ -43,31 +49,36 @@ export default function PageRestaurantFinder({cardClicked, onNewSearch}:Props)
 
     return <div>
         <div>
-            <span>Find</span>
-            <input placeholder='Type an adress' onChange={e => setLocation(e.target.value)}/>
-            <button onClick={_ => newSearch()}> Search </button>
+            <Label>Find a restaurant</Label>
+            <Input placeholder='Type an adress' onChange={e => setLocation(e.target.value)}/>
+            <Button onClick={_ => newSearch()}> Search </Button>
             </div>
             <div>
-            {FOODS_CATEGORIES.map((c, id) => <button
-                key={id} 
-                style={{ background : category?.alias == c.alias ? 'gray' : '#1a1a1a' }}
-                onClick={_ => setCategory(category?.alias == c.alias ? undefined : c)}>
-                    {c.title}
-            </button>)}
+                
+            <ToggleGroup type="single">
+                {FOODS_CATEGORIES.map((c, id) => <div key={id} onClick={_ => setCategory(category?.alias == c.alias ? undefined : c)}><ToggleGroupItem value={c.alias}> {c.title} </ToggleGroupItem></div>)}
+            </ToggleGroup>
             
-            <select defaultValue='' onChange={e => setPrice(e.target.value as Price)}>
-                <option value=""></option>
-                <option value="1">$</option>
-                <option value="2">$$</option>
-                <option value="3">$$$</option>
-                <option value="4">$$$$</option>
-            </select>
+            <Select defaultValue='' onValueChange={value => setPrice(value as Price)}>
+                <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Price" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="1">$</SelectItem>
+                    <SelectItem value="2">$$</SelectItem>
+                    <SelectItem value="3">$$$</SelectItem>
+                    <SelectItem value="4">$$$$</SelectItem>
+                </SelectContent>
+            </Select>
 
-            <input type="checkbox" onChange={e => setRating(e.target.checked)} /> Best rating
+            <Toggle onClick={_ => setRating(!rating)}>Best rating</Toggle>
+
             
             </div>
-            <div> <input placeholder='Filter critere' onChange={e => setFilterName(e.target.value)}/> </div>
+            <div> <Input placeholder='Filter critere' onChange={e => setFilterName(e.target.value)}/> </div>
             <div>
+
+            <br/>
             
             {loading ? <LoadingDatas /> :
             error ? <ErrorFetchDatas /> : 
